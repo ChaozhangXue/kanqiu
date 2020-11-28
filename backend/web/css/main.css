@@ -1,0 +1,166 @@
+.bd-sidebar {
+    -webkit-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+    order: 0;
+}
+
+@media (min-width: 768px) {
+    .bd-sidebar {
+        border-right: 1px solid rgba(0, 0, 0, .1)
+    }
+
+    @supports ((position:-webkit-sticky) or (position:sticky)) {
+        .bd-sidebar {
+            position: -webkit-sticky;
+            position: sticky;
+            z-index: 1000;
+            top: 50px;
+            height: calc(100vh - 50px)
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .bd-sidebar {
+        -webkit-box-flex: 0;
+    }
+}
+
+.bd-content {
+    padding: 1rem;
+}
+
+.bd-sidebar .list-group .list-group-item {
+    cursor: pointer;
+    border-radius: 0 !important;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.bd-sidebar .main-item:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.bd-sidebar .sub-item {
+    padding: 0;
+}
+
+.bd-sidebar .list-sub-item {
+    padding: 0;
+}
+
+.bd-sidebar .list-sub-item .list-group-item {
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    padding-left: 2.5rem;
+    position: relative;
+    margin-bottom: -1px;
+    background-color: #fff;
+}
+
+.bd-sidebar .list-sub-item .list-group-item:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.bd-sidebar .list-sub-item .list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.bd-sidebar .bd-content {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1
+}
+
+.popup-content {
+    position: fixed;
+    top: 52px;
+    right: 1rem;
+    z-index: 9999;
+}
+
+.popup-content .alert {
+    margin-bottom: .5rem;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+}
+
+#loadingModel {
+    line-height: 60px;
+    text-align: center;
+    display: block;
+    height: 60px;
+    width: 300px;
+    background: white;
+    border-radius: 5px;
+}
+
+.fileinput-box {
+    width: 82px;
+    position: relative;
+    height: 82px;
+    border: 1px solid #999;
+}
+
+.fileinput-box .plus-symbol {
+    position: absolute;
+    font-size: 45px;
+    color: #999;
+    text-align: center;
+    width: 80px;
+    height: 80px;
+}
+
+.fileinput-box .fileinput-input {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.fileinput-box img {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+}
+
+.table-list {
+    border-top: 0;
+}
+
+.table-list tbody tr:first-child {
+    border-top: 0;
+}
+
+.table-list tbody tr:first-child td {
+    border-top: 0;
+}
+.search-form .search-group{
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.search-form .search-input {
+    width: 100px;
+    display: inline-block;
+}
+
+.amap_lib_placeSearch .poibox.highlight {
+    background-color: #CAE1FF;
+}
+
+.amap_lib_placeSearch .poi-more {
+    display: none !important;
+}
+

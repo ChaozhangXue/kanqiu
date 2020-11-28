@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条码打印</title>
+    <link rel="stylesheet" href="js/plugin/barcode/css/bootstrap.min.css"/>
+    <style>
+        .bcTarget {
+            display: inline-block;
+            height: 100px !important;
+            font-size: 30px;
+
+        }
+
+        #barcode-content{
+            text-align: left;
+        }
+        .print-action {
+            position: fixed;
+            bottom: 10px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+        }
+
+        .print-input {
+            width: 90%;
+            margin: 0;
+            display: inline-block;
+            border-right: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            height: 100px !important;
+        }
+
+        .print-btn {
+            margin: 0;
+            width: 10%;
+            display: inline-block;
+            font-size: 30px;
+            border-left: 0;
+            align-items: center;
+            border-top-left-radius: 0;
+            height: 100px;
+            border-bottom-left-radius: 0;
+            padding: 20px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+
+    <form class="form-horizontal">
+        <div class="form-group" id="barcode-content" style="page-break-after: always">
+            <div id="bcTarget-end" style="display: none;page-break-after: always"></div>
+        </div>
+    </form>
+
+</div>
+
+<div class="print-action">
+    <textarea placeholder="请输入条码,每条以回车结尾" class="form-control print-input" id="input-barcode" hidden="hidden"></textarea>
+    <span class="btn btn-primary print-btn">打印</span>
+</div>
+</body>
+
+<script src="js/plugin/barcode/js/jquery.js"></script>
+<script src="js/plugin/barcode/js/bootstrap.js"></script>
+<script src="js/plugin/barcode/js/jquery.barcode.js"></script>
+
+<script>
+    $(document).ready(function(){
+        params = GetQueryString('barcode')
+        if(params.length !== 0){
+            var val = params;
+            var arr = val.split(',');
+            $('#barcode-content .bcTarget').remove();
+            for (var i in arr) {
+                if((arr[i]).trim()==''){
+                    continue;
+                }
+                var html = '</br> <div class="bcTarget" ><div id="bcTarget' + i + '"></div></div>';
+                $('#bcTarget-end').before(html);
+                $("#bcTarget" + i).barcode(arr[i], 'code128',{
+                    'barWidth':'2'
+                });
+            }
+        }
+
+        $('.print-action').hide();
+        window.print();
+    });
+
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    $(function () {
+        // $('#input-barcode').bind('input propertychange', function () {
+        //     if ($(this).val().length) {
+        //         var val = $(this).val();
+        //         var arr = val.split('\n');
+        //         $('#barcode-content .bcTarget').remove();
+        //         for (var i in arr) {
+        //             if((arr[i]).trim()==''){
+        //                 continue;
+        //             }
+        //             var html = ' <div class="bcTarget"><div id="bcTarget' + i + '"></div></div>';
+        //             $('#bcTarget-end').before(html);
+        //             $("#bcTarget" + i).barcode(arr[i], 'code128',{
+        //                 'barWidth':'2'
+        //             });
+        //         }
+        //     }
+        // });
+
+    });
+    var afterPrint = function (e) {
+        $('.print-action').show();
+
+    };
+    window.onafterprint = afterPrint;
+</script>
+</html>

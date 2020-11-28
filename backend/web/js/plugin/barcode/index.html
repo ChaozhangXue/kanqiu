@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条码打印</title>
+    <link rel="stylesheet" href="/js/plugin/barcode/css/bootstrap.min.css"/>
+    <style>
+        .bcTarget {
+            display: inline-block;
+        }
+
+        #barcode-content{
+            text-align: center;
+        }
+        .print-action {
+            position: fixed;
+            bottom: 10px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+        }
+
+        .print-input {
+            width: 90%;
+            margin: 0;
+            display: inline-block;
+            border-right: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            height: 100px !important;
+        }
+
+        .print-btn {
+            margin: 0;
+            width: 10%;
+            display: inline-block;
+            font-size: 30px;
+            border-left: 0;
+            align-items: center;
+            border-top-left-radius: 0;
+            height: 100px;
+            border-bottom-left-radius: 0;
+            padding: 20px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div>
+
+    <form class="form-horizontal">
+        <div class="form-group" id="barcode-content">
+            <div id="bcTarget-end" style="display: none"></div>
+        </div>
+    </form>
+
+</div>
+
+<div class="print-action">
+    <textarea placeholder="请输入条码,每条以回车结尾" class="form-control print-input" id="input-barcode"></textarea>
+    <span class="btn btn-primary print-btn">打印</span>
+</div>
+</body>
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/jquery.barcode.js"></script>
+<script>
+    $(function () {
+        $('#input-barcode').bind('input propertychange', function () {
+            if ($(this).val().length) {
+                var val = $(this).val();
+                var arr = val.split('\n');
+                $('#barcode-content .bcTarget').remove();
+                for (var i in arr) {
+                    if((arr[i]).trim()==''){
+                    continue;
+}    
+                    var html = ' <div class="bcTarget"><div id="bcTarget' + i + '"></div></div>';
+                        $('#bcTarget-end').before(html);
+                        $("#bcTarget" + i).barcode(arr[i], 'code128',{
+                            'barWidth':'2'
+                        });
+                }
+            }
+        });
+        $('.print-btn').click(function () {
+            $('.print-action').hide();
+            window.print();
+        });
+    });
+    var afterPrint = function (e) {
+        $('.print-action').show();
+    };
+    window.onafterprint = afterPrint;
+
+</script>
+</html>
