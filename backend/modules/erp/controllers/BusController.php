@@ -11,7 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BusController implements the CRUD actions for Bus model.
+ * WatchListController implements the CRUD actions for Bus model.
  */
 class BusController extends BaseController
 {
