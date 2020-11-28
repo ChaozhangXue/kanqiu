@@ -6,7 +6,7 @@ use api\controllers\BaseController;
 use common\models\Address;
 use Yii;
 
-class AddressController extends BaseController
+class UserController extends BaseController
 {
     public $modelClass = 'common\models\Address';
 
