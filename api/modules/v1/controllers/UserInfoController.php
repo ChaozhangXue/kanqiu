@@ -9,4 +9,15 @@ use Yii;
 class UserInfoController extends BaseController
 {
     public $modelClass = 'common\models\UserInfo';
+	
+	public function actionLogin(){
+		print_r(1);die;
+	}
+	
+	public function actionSendCapture(){
+	
+	}
+	
+	public function actionAddUser(){
+	}
 }
