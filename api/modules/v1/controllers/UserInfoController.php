@@ -6,7 +6,7 @@ use api\controllers\BaseController;
 use common\models\Address;
 use Yii;
 
-class WatchListController extends BaseController
+class UserInfoController extends BaseController
 {
-    public $modelClass = 'common\models\WatchList';
+    public $modelClass = 'common\models\UserInfo';
 }

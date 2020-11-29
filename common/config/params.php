@@ -3,6 +3,66 @@ return [
     'adminEmail' => 'admin@example.com',
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
+    'jpush' => [
+        'app_key' => '74597e1e02800c9ccf2adf27',
+        'market_secret' => 'f6a793a3f30b72bcd3da5545'
+    ],
+    'identity_verify_url' => 'https://way.jd.com/yingyan/idcard?appkey=4b1476d9f33f8ccf2738f89cb429830f',
+    'verify_code_expire' => '90',
+    'encrypt' => [
+        'key' => '#XinChangQRCODE#', //密钥
+        'iv' => 'XC12345678901234',  //偏移量
+        'mode' => 'AES-128-CBC',
+    ],
+    'refund' => false,//退款功能
+    'wechat' => [
+        'app_id' => 'wxd4886c7ba623dcae',//小程序ID
+        'app_secret' => 'faa3405147a5708e4c5086799e1bcbeb',//小程序密钥
+        'mch_id' => '1555283351',
+        'pay_key' => 'cac4afebc08d994c0123c75d3961f493',
+    ],
+    'sms' => [
+        'AccessKeyID' => 'LTAI4FbeCJFVnQ8UZDWDLzzH',
+        'AccessKeySecret' => 'qEQYzFHMetcpR4ac4eFj6rn3EMkhVz',
+        'SignName' => '新昌交运'
+    ],
+    'map' => [
+        'app_key' => '2175f2648b6f5b25eb3bdb0b2710b977'
+    ],
+    'sms_type_list' => [
+        1 => [
+            'name' => '身份验证验证码',
+            'code' => 'SMS_173136087'
+        ],
+        2 => [
+            'name' => '登录确认验证码',
+            'code' => 'SMS_173136086'
+        ],
+        3 => [
+            'name' => '登录异常验证码',
+            'code' => 'SMS_173136085'
+        ],
+        4 => [
+            'name' => '用户注册验证码',
+            'code' => 'SMS_173136084'
+        ],
+        5 => [
+            'name' => '修改密码验证码',
+            'code' => 'SMS_173136083'
+        ],
+        6 => [
+            'name' => '信息变更验证码',
+            'code' => 'SMS_173136082'
+        ],
+        7 => [
+            'name' => '通知用户领取快递',
+            'code' => 'SMS_175075929'
+        ]
+    ],
+    'web_info' => [
+        'host' => 'https://www.delcache.com',
+        'ip' => '121.40.224.59',
+    ],
     'car_type_list' => [
         '1' => '小巴车',
         '2' => '中巴车',

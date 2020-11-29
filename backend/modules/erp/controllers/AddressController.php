@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for Address model.
+ * AddressController implements the CRUD actions for Address model.
  */
 class AddressController extends BaseController
 {

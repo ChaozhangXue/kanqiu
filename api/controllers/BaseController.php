@@ -96,7 +96,8 @@ class BaseController extends ActiveController
             file_put_contents(\Yii::$app->runtimePath . DIRECTORY_SEPARATOR . 'xc.log', date('Y-m-d H:i:s ') . \Yii::$app->request->url . ' ' . 'token:' . (isset($header['token'][0]) ? $header['token'][0] : '') . ' ' . json_encode($data) . PHP_EOL, FILE_APPEND);
         }
         try {
-            $this->getUserByToken();
+            //todo 鉴权
+//            $this->getUserByToken();
         } catch (\Exception $e) {
             $this->error($e->getMessage(), $e->getCode());
         }

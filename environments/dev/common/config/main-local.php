@@ -3,9 +3,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=cd-cdb-rd8lf26a.sql.tencentcdb.com:62257;dbname=xinchang;',
+            'dsn' => 'mysql:host=121.40.224.59;dbname=xinchang',
             'username' => 'root',
-            'password' => 'kanqiu@123',
+            'password' => 'del-cache123456',
             'charset' => 'utf8',
         ],
         'mailer' => [

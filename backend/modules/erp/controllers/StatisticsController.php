@@ -8,7 +8,7 @@ use common\services\StatisticsService;
 use yii\filters\VerbFilter;
 
 /**
- * WatchListController implements the CRUD actions for Bus model.
+ * BusController implements the CRUD actions for Bus model.
  */
 class StatisticsController extends BaseController
 {
