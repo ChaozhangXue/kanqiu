@@ -71,11 +71,11 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
                     'controller' => [
-                        'v1/user-info',
-                        'v1/watch-list',
+                        'user-info',
+                        'watch-list',
                     ]
                 ],
-                'POST v1/user-info/register' => 'v1/user-info/register',
+                'POST user-info/register' => 'user-info/register',
             ]
         ],
     ],
