@@ -4,6 +4,7 @@ namespace api\controllers;
 
 use api\controllers\BaseController;
 use common\models\Address;
+use common\models\UserInfo;
 use Yii;
 
 class UserInfoController extends BaseController
@@ -19,7 +20,15 @@ class UserInfoController extends BaseController
 	}
 	
 	public function actionRegister(){
-	    print_r(1);die;
+        $params = \Yii::$app->request->post();
 
+        $user_info = new UserInfo();
+
+        foreach ($params as $key => $value){
+            $user_info->$key = $value;
+        }
+        $user_info->save();
+
+        $this->success();
 	}
 }
