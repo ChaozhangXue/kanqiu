@@ -75,9 +75,7 @@ return [
                         'v1/watch-list',
                     ]
                 ],
-                'POST v1/public/station-login' => 'v1/public/station-login',
-                'POST v1/public/driver-login' => 'v1/public/driver-login',
-                'POST v1/public/send-code' => 'v1/public/send-code',
+                'POST v1/user-info/register' => 'v1/user-info/register',
             ]
         ],
     ],
