@@ -20,5 +20,6 @@ class UserInfoController extends BaseController
 	
 	public function actionRegister(){
 	    print_r(1);die;
+
 	}
 }

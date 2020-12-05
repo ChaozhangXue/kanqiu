@@ -44,40 +44,6 @@ return [
         'errorHandler' => [
             'errorAction' => 'base/error',
         ],
-        //修改返回值  如果是gii的话 需要注释这一段
-        'response' => [
-            'class' => 'yii\web\Response',
-            'on beforeSend' => function ($event) {
-                $response = $event->sender;
-                if (is_string($response->data)) { //gii的是string  正常是数组
-                    return;
-                } else {
-                    $response->data = [
-                        'code' => ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) ? 200 : 500,
-                        'msg' => $response->statusText,
-                        'data' => $response->data,
-                    ];
-                    $response->statusCode = 200;
-                    file_put_contents(\Yii::$app->runtimePath . DIRECTORY_SEPARATOR . 'xc.log', json_encode($response->data) . PHP_EOL, FILE_APPEND);
-                }
-            },
-        ],
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'enableStrictParsing' => true,
-            'rules' => [
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'pluralize' => false,
-                    'controller' => [
-                        'user-info',
-                        'watch-list',
-                    ]
-                ],
-                'POST user-info/register' => 'user-info/register',
-            ]
-        ],
     ],
     'params' => $params,
 ];
