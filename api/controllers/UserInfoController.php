@@ -4,6 +4,7 @@ namespace api\controllers;
 
 use api\controllers\BaseController;
 use common\models\Address;
+use common\models\FreeWatch;
 use common\models\UserInfo;
 use Yii;
 
@@ -12,23 +13,91 @@ class UserInfoController extends BaseController
     public $modelClass = 'common\models\UserInfo';
 	
 	public function actionLogin(){
-		print_r(1);die;
-	}
+        $phone = \Yii::$app->request->post('phone');
+        $username = \Yii::$app->request->post('username');
+        $password = \Yii::$app->request->post('password');
+        $email = \Yii::$app->request->post('email');
+
+        $user = new UserInfo();
+        if(!empty($phone)){
+            $user_info = $user::find()->where(['phone'=> $phone])->one();
+        }
+
+        if(!empty($username)){
+            $user_info = $user::find()->where(['username'=> $username])->one();
+        }
+
+        if(!empty($email)){
+            $user_info = $user::find()->where(['email'=> $email])->one();
+        }
+
+        if(empty($user_info)){
+            $this->error('用户已存在');
+        }else{
+            if($user_info->password != $password){
+                $this->error('密码不正确');
+            }
+        }
+
+        $this->success();
+    }
 	
 	public function actionSendCapture(){
 	
 	}
-	
-	public function actionRegister(){
+
+	public function actionCreate(){
+//        `username` VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci',
+//	`password` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+//	`email` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+//	`phone` INT(11) UNSIGNED NULL DEFAULT NULL,
+
         $params = \Yii::$app->request->post();
 
-        $user_info = new UserInfo();
+        try{
+            $model = new UserInfo();
 
-        foreach ($params as $key => $value){
-            $user_info->$key = $value;
+            foreach ($params as $key => $value){
+                $model->$key = $value;
+            }
+            $model->save();
+        }catch (\Exception $exception){
+            $this->error();
         }
-        $user_info->save();
 
         $this->success();
 	}
+
+    /**
+     * 判断是不是新用户
+     */
+	public function actionCheckFree(){
+	    $ip = $this->getClientIp();
+        $model = new FreeWatch();
+        $free_watch_history = $model::find()->where(['ip' => $ip])->one();
+        if(!empty($free_watch_history)){
+            $this->success(['is_new_user' => 0]);
+        }else{
+            $model->create_time = date("Y-m-d H:i:s");
+            $model->ip = $ip;
+            $model->save();
+            $this->success(['is_new_user' => 1]);
+        }
+	}
+
+    protected function getClientIp ()
+    {
+        if (getenv('HTTP_CLIENT_IP')) {
+            $ip = getenv('HTTP_CLIENT_IP');
+        } else if (getenv('HTTP_X_FORWARDED_FOR')) {
+            $ip = getenv('HTTP_X_FORWARDED_FOR');
+        } else if (getenv('REMOTE_ADDR')) {
+            $ip = getenv('REMOTE_ADDR');
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
+
+
 }

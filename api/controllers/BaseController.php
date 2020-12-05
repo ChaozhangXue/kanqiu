@@ -12,57 +12,13 @@ use yii\web\Response;
 /**
  * Base controller
  */
-class BaseController extends ActiveController
+class BaseController extends \yii\rest\Controller
 {
     public $modelClass = 'api-model';
 
     public $user_primary = 'customer_id';
 
     public $filter = false;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
-    {
-        return [
-            'index' => [
-                'class' => 'yii\rest\IndexAction',
-                'modelClass' => $this->modelClass,
-                'checkAccess' => [$this, 'checkAccess'],
-                'dataFilter' => [
-                    'class' => 'yii\data\ActiveDataFilter',
-//                    'searchModel' => ['class' => 'backend\models\OrderSearch']
-                    'searchModel' => ['class' => str_replace('common\models', 'backend\models\search', $this->modelClass) . 'Search']
-                ]
-            ],
-            'view' => [
-                'class' => 'yii\rest\ViewAction',
-                'modelClass' => $this->modelClass,
-                'checkAccess' => [$this, 'checkAccess'],
-            ],
-            'create' => [
-                'class' => 'yii\rest\CreateAction',
-                'modelClass' => $this->modelClass,
-                'checkAccess' => [$this, 'checkAccess'],
-                'scenario' => $this->createScenario,
-            ],
-            'update' => [
-                'class' => 'yii\rest\UpdateAction',
-                'modelClass' => $this->modelClass,
-                'checkAccess' => [$this, 'checkAccess'],
-                'scenario' => $this->updateScenario,
-            ],
-            'delete' => [
-                'class' => 'yii\rest\DeleteAction',
-                'modelClass' => $this->modelClass,
-                'checkAccess' => [$this, 'checkAccess'],
-            ],
-            'options' => [
-                'class' => 'yii\rest\OptionsAction',
-            ],
-        ];
-    }
 
     public function behaviors()
     {
