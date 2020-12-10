@@ -56,7 +56,7 @@ class UserInfoController extends BaseController
 
         $params = \Yii::$app->request->post();
         $invite_code = \Yii::$app->request->post('invite_code');
-
+        unset($params['invite_code']);
         try{
             $model = new UserInfo();
 
@@ -72,6 +72,7 @@ class UserInfoController extends BaseController
                 $inviter_id = $invite_detail[0];
                 $invite_model->inviter_id = $inviter_id;
                 $invite_model->inviter_code = $invite_code;
+                $invite_model->invited_id = $model->id;
                 $invite_model->create_time = date('Y-m-d H:i:s');
                 $invite_model->save();
             }
