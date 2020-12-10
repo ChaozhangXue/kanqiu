@@ -76,8 +76,8 @@ class UserInfoController extends BaseController
                 $invite_model->create_time = date('Y-m-d H:i:s');
                 $invite_model->save();
             }
-        }catch (\Exception $exception){
-            $this->error();
+        }catch (\Exception $e){
+            $this->error($e);
         }
 
         $this->success();
@@ -134,6 +134,7 @@ class UserInfoController extends BaseController
             $invite_code = $user_id . '_' . time();
             $model->inviter_id = $user_id;
             $model->invite_code = $invite_code;
+            $model->create_time = date('Y-m-d H:i:s');
             $model->save();
         }else{
             $invite_code = $invite_data->invite_code;
