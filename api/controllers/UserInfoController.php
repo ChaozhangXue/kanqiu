@@ -107,6 +107,9 @@ class UserInfoController extends BaseController
         return $ip;
     }
 
+    /**
+     * 生成邀请码
+     */
     public function actionGenerateInvite(){
 	    $user_id = Yii::$app->request->post('id');
 
