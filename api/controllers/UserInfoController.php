@@ -66,8 +66,14 @@ class UserInfoController extends BaseController
             $model->save();
 
             if(isset($invite_code)){
+                //如果有邀请码 增加一条邀请记录
                 $invite_model = new InviteRecord();
-//                $invite_model->inviter_id =
+                $invite_detail = explode('_', $invite_code);
+                $inviter_id = $invite_detail[0];
+                $invite_model->inviter_id = $inviter_id;
+                $invite_model->inviter_code = $invite_code;
+                $invite_model->create_time = date('Y-m-d H:i:s');
+                $invite_model->save();
             }
         }catch (\Exception $exception){
             $this->error();
