@@ -5,6 +5,8 @@ namespace api\controllers;
 use api\controllers\BaseController;
 use common\models\Address;
 use common\models\FreeWatch;
+use common\models\Invite;
+use common\models\InviteRecord;
 use common\models\UserInfo;
 use Yii;
 
@@ -53,6 +55,7 @@ class UserInfoController extends BaseController
 //	`phone` INT(11) UNSIGNED NULL DEFAULT NULL,
 
         $params = \Yii::$app->request->post();
+        $invite_code = \Yii::$app->request->post('invite_code');
 
         try{
             $model = new UserInfo();
@@ -61,6 +64,11 @@ class UserInfoController extends BaseController
                 $model->$key = $value;
             }
             $model->save();
+
+            if(isset($invite_code)){
+                $invite_model = new InviteRecord();
+//                $invite_model->inviter_id =
+            }
         }catch (\Exception $exception){
             $this->error();
         }
@@ -99,5 +107,27 @@ class UserInfoController extends BaseController
         return $ip;
     }
 
+    public function actionGenerateInvite(){
+	    $user_id = Yii::$app->request->post('id');
 
+	    //判断用户在不在
+        $user_model = new UserInfo();
+        $user_info = $user_model::find()->where(['id' => $user_id])->one();
+
+        if(empty($user_info)){
+            $this->error('用户不存在');
+        }
+
+	    $model = new Invite();
+	    $invite_data = $model::find()->where(['inviter_id' => $user_id])->one();
+	    if(empty($invite_data)){
+            $invite_code = $user_id . '_' . time();
+            $model->inviter_id = $user_id;
+            $model->invite_code = $invite_code;
+            $model->save();
+        }else{
+            $invite_code = $invite_data->invite_code;
+        }
+        $this->success($invite_code);
+    }
 }
