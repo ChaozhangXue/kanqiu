@@ -63,6 +63,8 @@ class UserInfoController extends BaseController
             foreach ($params as $key => $value){
                 $model->$key = $value;
             }
+            $model->create_time = date('Y-m-d H:i:s');
+            $model->update_time = date('Y-m-d H:i:s');
             $model->save();
 
             if(isset($invite_code)){
