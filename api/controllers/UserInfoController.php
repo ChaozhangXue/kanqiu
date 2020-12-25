@@ -18,12 +18,16 @@ class UserInfoController extends BaseController
     {
         $phone = Yii::$app->request->post('phone');
         //校验是否存在
-        $user = UserInfo::find()->where(['phone' => $phone])->one();
-        if(empty($user)){
-            return $this->error('手机号码不正确');
-        }
+//        $user = UserInfo::find()->where(['phone' => $phone])->one();
+//        if(empty($user)){
+//            return $this->error('手机号码不正确');
+//        }
 
         $capture = $this->generateCapture();
+
+        //将验证码存入redis
+        $key = 'capture_' . $phone;
+        Yii::$app->cache->redis->set($key);
         $rsp = $this->sendSMS($phone, $capture);
         $this->success($rsp);
 
